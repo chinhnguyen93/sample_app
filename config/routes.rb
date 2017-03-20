@@ -22,4 +22,6 @@ Rails.application.routes.draw do
   delete '/logout',to:'sessions#destroy'
 
   resources :account_activations, only: [:edit]
+
+  default_url_options :host => "localhost:3000"
 end
