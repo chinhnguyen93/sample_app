@@ -3,13 +3,14 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin, only: [:destroy]
   def new
-  	@user=User.new
+  	@user = User.new
   end
   def show
-  	@user=User.find_by_id(params[:id])
+  	@user = User.find_by_id(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
   def create
-  	@user=User.new(params_user)
+  	@user = User.new(params_user)
   	if @user.save
       @user.send_activation_email
       flash[:info] = "Please check your email to activate your account."
@@ -50,6 +51,9 @@ class UsersController < ApplicationController
   end
   def admin
     redirect_to(root_url) unless current_user.admin?
+  end
+  def admin_user
+      redirect_to(root_url) unless current_user.admin?
   end
   private
   def params_user
