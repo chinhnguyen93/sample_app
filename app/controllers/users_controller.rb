@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     redirect_to(root_url) unless current_user.admin?
   end
   def admin_user
-      redirect_to(root_url) unless current_user.admin?
+    redirect_to(root_url) unless current_user.admin?
   end
   def following
     @title = "Following"
@@ -70,6 +70,6 @@ class UsersController < ApplicationController
   end
   private
   def params_user
-  	params.require(:user).permit(:name,:email,:password, :password_confirmation)
+    params.require(:user).permit(:name,:email,:password, :password_confirmation)
   end
 end
