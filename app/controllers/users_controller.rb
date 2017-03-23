@@ -55,6 +55,19 @@ class UsersController < ApplicationController
   def admin_user
       redirect_to(root_url) unless current_user.admin?
   end
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
   private
   def params_user
   	params.require(:user).permit(:name,:email,:password, :password_confirmation)
