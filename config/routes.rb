@@ -25,10 +25,17 @@ Rails.application.routes.draw do
 
   delete '/logout',to:'sessions#destroy'
 
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
   resources :account_activations, only: [:edit]
 
   default_url_options :host => "localhost:3000"
 
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 end
